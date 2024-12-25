@@ -1,0 +1,10 @@
+body{
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+div{
+    padding: 30px;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 255, 0.1);
+}

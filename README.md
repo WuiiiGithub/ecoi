@@ -374,17 +374,119 @@ isAccepted = owner.requests.read(filter={
 group.addMember(user2.user_id)
 
 
-print("The user1's groupship is:", user1.getGroupShip())
-print("The user2's groupship is:", user2.getGroupShip())
-print("The group's members are:", group.getMembers())
-print("The group's owner's id is:", group.getOwnerId())
-print("The group's info is: ", group.read())
-print("The group's members info is: ", group.getMembersInfo(user_id))
+group.read()
+user1.getGroupShip()
+group.getMembersInfo(user_id)
+group.getMembers()
+group.getOwnerId()
+
+
+# Roles
+role = group.createRole(name, ...)
+role_id = role.id
+
+role.update(...)
+
+role.addMember(...)
+role.memberInfo(...)
+role.removeMember(...)
+role.permissions(...).read()
+role.permissions(...).add(...)
+role.permissions(...).remove(...)
+role.permissions(...).clear(...)
+role.permissions(...).update(...)
+
+role.block(...)
+role.unblock(...)
+
+role.delete(...)
 ```
-### Others 
-These will be planned soon.
+### Advertisement
+```py
+from ecoi.core.economy import advertisements
+
+adv = advertisements.createAdv(...)
+adv_id = adv.id
+
+adv.update(...)
+adv.read()
+
+adv.draft(...)
+adv.publish(...)
+
+advCampaign = company.createAdvCampaign(...)
+advCampaign_id = advCampaign.id
+
+advCampaign.update(...)
+advCampaign.read()
+
+advCampaign.start(...)
+advCampaign.end(...)
+
+advCampaign.delete(...)
+```
+### Companies 
+```py
+from ecoi.core import companies
+
+company = companies.createCompany(...)
+company_id = company.id
+
+company = companies.getCompany(company_id)
+
+company.read()
+
+company.update(...)
+
+company.hireEmployee(...)
+company.fireEmployee(...)
+company.getEmployees(...)
+company.getEmployeeInfo(...)
+company.advertise(...)
+company.startAdvCampaign(...)
+company.endAdvCampaign(...)
+
+company.advertise(...)
+
+company.contract(...)
+company.breakContract(...)
+
+role = company.createRole(...)
+role_id = role.id
+
+company.getRole(...)
+company.getRoles(...)
+
+# roles within the company
+role.update(...)
+role.addEmployee(...)
+role.removeEmployee(...)
+role.permissions(...).read()
+role.permissions(...).add(...)
+role.permissions(...).remove(...)
+role.permissions(...).update(...)
+role.permissions(...).clear(...)
+role.block(...)
+role.unblock(...)
+role.delete(...)
+
+# Salary or Giving something to Employee or Role
+company.giveEmployee(...)
+company.payEmployee(...)
+company.giveRole(...)
+company.payRole(...)
+
+# Collaborations
+company.collab(...)
+company.breakCollab(...)
+
+company.block(...)
+company.unblock(...)
+
+company.delete(...)
+```
 ```md
-### Companies
+### Others
 ### Banks
 ### Analytics
 ```

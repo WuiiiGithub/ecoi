@@ -217,143 +217,9 @@ bank.delete(...)
 ```
 ... similary others
 
-### Users 
-- let userX, another_userY be a created users. Where X, Y are numbers.
-- let group, another_group be a created groups for userX and userY respectively.
-```py
-from ecoi.core import users
-from ecoi.core import groups
-
-user1 = users.createUser(...)
-user2 = users.createUser(...)
-
-# Economic Operations of User
-user1.wallet.read()
-user1.wallet.addMoney(1000)
-user1.wallet.getMoney()
-user1.wallet.removeMoney(1000)
-user1.wallet.clear()
-user1.wallet.upgrade()
-
-user1.safe.read()
-user1.safe.addMoney(1000)
-user1.safe.getMoney()
-user1.safe.removeMoney(1000)
-user1.safe.clear()
-user1.safe.upgrade()
-
-user1.banks.read()
-user1Bank = user1.banks.getBank(bank_id)
-acc_id = user1Bank.createAccount(bank_id, name, initial_amount=1000, ...)
-user1Bank.getAccounts(bank_id).read()
-user1Bank.getAccount(acc_id).read()
-user1Bank.getAccount(acc_id).addMoney(1000)
-user1Bank.getAccount(acc_id).getMoney()
-user1Bank.getAccount(acc_id).removeMoney(1000)
-user1Bank.getAccount(acc_id).borrowReq(1000, collateral)
-
-lend_id = user1.requests.read(filter={
-    "status": "pending",
-    "fromType": "bank",
-    "limit": 1,
-    "details":{
-        "bank_id": bank_id,
-        "account_id": acc_id,
-        "type": "borrow",
-    }
-}, query_vars=["lend_id"]
-)["lend_id"]
-
-user1Bank.getAccount(acc_id).borrow(1000, lend_id)
-user1Bank.getAccount(acc_id).borrowClosure(lend_id, 1000)
-user1Bank.getAccount(acc_id).clear()
-user1Bank.getAccount(acc_id).upgrade()
-user1Bank.delAccounts(acc_id)
-user1.banks.delBank(bank_id)
-
-user1.status.read()
-user1.status.addStatus(link, ...)
-user1.status.removeStatus()
-
-# sending allerts
-user1.allert.user(...)
-user1.allert.users(...)
-user1.allert.mods(...)
-user1.allert.managers(...)
-user1.allert.admins(...)
-user1.allert.custom(...)
-
-# checking allerts
-user1.allerts.read(count=5)
-user1.allerts.clear(allert_id)
-user1.allerts.clearAll()
-user1.allerts.deny(sender_id)
-user1.allerts.denyAll()
-user1.allerts.allow(sender_id)
-user1.allerts.allowAll()
-user1.allerts.allowedIds()
-user1.allerts.deniedIds()
-
-# Info Reading
-user1.status.read(user2.user_id)
-user1.followers.read(user2.user_id)
-user1.following.read(user2.user_id)
-user1.groupship.read(user2.user_id)
-user1.profile.read(user2.user_id)
-```
-### Connections
-```py
-user1.follow(user2.user_id)
-user1.unfollow(user2.user_id)
-user1.followers.read(user2.user_id)
-user1.following.read(user2.user_id)
-user1.block(user2.user_id)
-user1.unblock(user2.user_id)
-
-user1.freq(user2.user_id) # if the other user also send friend request then it will be accepted
-user1.freqlist.read()
-user1.freqlist.clear(user2.user_id)
-user1.freqlist.clearAll()
-user1.friendship(user2.user_id)
-user1.unfriend(user2.user_id)
-# his own friendships
-user1.friendships.read()
-
-user1.friends.limit()
-user1.friends.stop()
-
-user1.followers.stop()
-user1.followers.limit()
-
-user1.report(user2.user_id, reason)
-
-user1.confess(user2.user_id, message, amount)
-user1.confesslist.read()
-user1.confesslist.clear(user2.user_id)
-user1.confesslist.clearAll()
-user1.confesslist.deny(user2.user_id)
-user1.confesslist.denyAll()
-
-user1.connect(user2.user_id)
-user1.disconnect(user2.user_id)
-user1.connectlist.read(user2.user_id)
-
-# entertainment
-user1.hug(user2.user_id)
-user1.cuddle(user2.user_id)
-user1.pat(user2.user_id)
-user1.poke(user2.user_id)
-user1.slap(user2.user_id)
-user1.tickle(user2.user_id)
-user1.wink(user2.user_id)
-user1.dance(user2.user_id)
-user1.cry(user2.user_id)
-user1.laugh(user2.user_id)
-user1.smile(user2.user_id)
-user1.wave(user2.user_id)
-user1.punch(user2.user_id)
-user1.kick(user2.user_id)
-user1.play(user2.user_id)
+### Users & Connections
+```diff
++Users and Connections Docs shifted to ./docs/Users.md
 ```
 ### Groups
 ```py
@@ -373,6 +239,11 @@ isAccepted = owner.requests.read(filter={
 }, query_vars=["isAccepted"]).respond(True)
 group.addMember(user2.user_id)
 
+group.createSubGroup(...)
+group.getSubGroups()
+group.getSubGroup(sub_group_id)
+group.deleteSubGroup(sub_group_id)
+group.updateSubGroup(sub_group_id, ...)
 
 group.read()
 user1.getGroupShip()
@@ -415,6 +286,8 @@ adv.draft(...)
 adv.publish(...)
 
 advCampaign = company.createAdvCampaign(...)
+advCampaign.upgrade(...)
+
 advCampaign_id = advCampaign.id
 
 advCampaign.update(...)
@@ -476,6 +349,37 @@ company.payEmployee(...)
 company.giveRole(...)
 company.payRole(...)
 
+# Company Buisness Operations
+item = company.createItem(...)
+item_id = item.id
+
+company.getItems(...)
+company.getItem(item_id, ...)
+
+item.updateItem(...)
+company.deleteItem(item_id, ...)
+
+company.sellItem(...)
+company.buyItem(...)
+
+service = company.createService(...)
+service_id = service.id
+company.getServices(...)
+company.getService(service_id, ...)
+company.updateService(...)
+company.deleteService(...)
+company.sellService(...)
+company.buyService(...)
+
+company.createMagicCard(...)
+company.getMagicCards(...)
+company.getMagicCard(...)
+company.updateMagicCard(...)
+company.deleteMagicCard(...)
+company.sellMagicCard(...)
+company.buyMagicCard(...)
+
+
 # Collaborations
 company.collab(...)
 company.breakCollab(...)
@@ -487,6 +391,34 @@ company.delete(...)
 ```
 ```md
 ### Others
+```py
+from ecoi.core.economy import items, services
+
+item = items.createItem(...)
+item_id = item.id
+
+item = items.getItem(item_id)
+
+
+
+service = services.createService(...)
+```
+### Requests
+```py
+from ecoi.core import requests
+
+req = requests.createRequest(...)
+req_id = req.req_id
+
+req = requests.getRequest(req_id)
+
+req.update(...)
+
+req.upgrade(...)
+req.read(...)
+
+req.delete()
+```
 ### Banks
 ### Analytics
 ```

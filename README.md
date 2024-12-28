@@ -1,424 +1,93 @@
-# Ecoi Package
-The aim of this package is to do some buisness operations without the use of real money. And use the artificial digital currency as an exchange.
-
----
-
-## Package Usage Structure - Future
-Lets say a user is importing and using it then it should be something like this in future.
-
-### Basic Structure
-```py
-import ecoi
-from ecoi import config
-
-db = config.dbConfig.getDB() 
-# or config.dbConfig.getDB() 
-
-config.vslConfig.runAnalyticsServer()
-# runs analytics dash-server in background
-```
-
-### CURD+ Operations
-#### User CURD+ Operations
-```py
-from ecoi.core import users 
-
-user = users.createUser(...)
-user_id = user.user_id
-
-user = users.getUser(user_id)
-user.update(
-    # name = str,
-    # email = str,
-    # bio = str,
-    # profile_pic = str,
-    ... 
-)
-
-readable_user = user.read(
-    # format = Literal['dict', 'bson'],
-    # print_console = True|False
-    ...
-)
-
-user.user_block(
-    # reason = str
-    # by_user_id = str
-    ...
-)
-
-user.group_block(
-    # reason = str
-    # by_user_id = str
-    ...
-)
-
-user.user_unblock(
-    # by_user_id = str
-    # reason = str
-    ...
-)
-user.group_unblock(
-    # by_user_id = str
-    # reason = str
-    ...
-)
-
-user.block(
-    # reason = str
-    ...
-)
-
-user.unblock(
-    # reason = str
-    ...
-)
-# owners of the package
-user.delete() # or deleted_user = user.delete()
-```
-#### Group CURD+ Operations
-```py
-from ecoi.core import groups
-
-group = groups.createGroup(...)
-group_id = group.group_id
+# Ecoi Package Documentation
 
-group = groups.getGroup(group_id)
+## About
 
-readable_group = group.read(...)
+**Ecoi** is a powerful and flexible package designed to simplify economy management tasks. Whether you're building a Discord economy bot or creating a more complex economy management system, Ecoi is equipped to handle all aspects of it with ease.
 
-group.update(...)
+### History
 
-group.block(...)
-group.unblock(...)
+The Ecoi project started as a simple attempt to build a Discord economy bot. After releasing versions 1 and 2, the complexity of the project grew. As a junior developer, I frequently reworked and refined the project to improve its functionality and make it more user-friendly. Eventually, the project evolved into a Python package aimed at simplifying economic management tasks for users.
 
-group.delete()
-```
-#### Economy CURD+ Operations
-##### Medium of Exchange CURD+ Operations
-```py
-from ecoi.core import economy
-# MOE means Medium of Exchange
-moe = economy.createMOE(...)
-moe_id = moe.moe_id
+### Vision
 
-moe = economy.getMOE(moe_id)
+The vision for Ecoi is to develop a comprehensive package that integrates various economy management functions, allowing users to manage their virtual economy in a highly customizable and accessible way. It is designed to be adaptable and extensible for various use cases, making it suitable for everything from small projects to larger-scale systems.
 
-moe.update(...)
+### Status
 
-readable_moe = moe.read(...)
+The project is currently in the early stages of development, focusing on creating a strong foundation for the Python package. The goal is to continuously improve its features and functionality, making it a go-to solution for managing virtual economies.
 
-moe.block(...)
-moe.unblock(...)
+## Documentation
 
-moe.delete(...)
-```
-##### Item CURD+ Operations
-```py
-item = economy.createItem(...)
-item_id = item.item_id
+You can find detailed documentation for different features of the Ecoi package in the following files:
 
-item = economy.getItem(item_id)
+- [Banks](docs/Banks.md)
+- [Companies](docs/Companies.md)
+- [User](docs/User.md)
+- [Groups](docs/Groups.md)
 
-item.update(...)
+### Utils
 
-readable_item = item.read(...)
+In addition to the core economy management features, Ecoi also includes utilities for enhanced functionality. These are organized under the `utils` directory:
 
-item.block(...)
-item.unblock(...)
+- [Advertisements](docs/utils/advertisements.md)
+- [Moe](docs/utils/moe.md)
+- [Products](docs/utils/products.md)
+- [Requests](docs/utils/requests.md)
+- [Magic Cards](docs/utils/magicCards.md)
 
-item.delete(...)
-```
-##### Service CURD+ Operations
-```py
-service = economy.createService(...)
+## Contributions
 
-service_id = service.service_id
-service = economy.getService(service_id)
+Ecoi is an open-source project, and contributions are highly encouraged. If you have an idea for a new feature or have found a bug, feel free to contribute by submitting a pull request or opening an issue.
 
-service.update(...)
+To contribute, please visit the [GitHub repository](https://github.com/WuiiiGithub).
 
-readable_service = service.read(...)
+## Installation
 
-service.block(...)
-service.unblock(...)
+The installation guide will be available soon, as the package is still under active development. Check back for updates.
 
-service.delete(...)
-```
-##### Magic Cards CURD+ Operations
-```py
-magic_card = economy.createMagicCard(...)
-magic_card_id = magic_card.magic_card_id
+## Features
 
-magic_card = economy.getMagicCard(magic_card_id)
+The Ecoi package offers a wide range of features designed to facilitate the management of virtual economies. These include:
 
-magic_card.update(...)
+- **User Management**: Easily manage users within the system. Add, remove, and update user information, as well as track balances and transactions.
+  
+- **Group Management**: Create and manage groups that can engage in collective economic activities such as trades and currency exchanges.
 
-readable_magic_card = magic_card.read(...)
+- **Company Management**: Build and manage virtual companies that can buy, sell, and produce goods. Companies can also track their assets and operations.
+  
+- **Bank Management**: Create and operate virtual banks, allowing users to deposit, withdraw, and transfer funds. Banks can also offer loans or interest rates, and manage their finances.
 
-magic_card.block(...)
-magic_card.unblock(...)
+- **Items and Economy**: Buy and sell products, manage inventory, and create customizable economies around goods and services.
 
-magic_card.delete(...)
-```
-##### Advertisements CURD+ Operations
-```py
-advertisement = economy.createAdvertisement(...)
-advertisement_id = advertisement.advertisement_id
+- **User Profiles**: Each user can create a detailed, customizable profile that includes personality types, job preferences, experience, and more. This allows for a rich and engaging user experience.
 
-advertisement = economy.getAdvertisement(advertisement_id)
+- **Currency System**: Ecoi allows the creation of customized currencies for virtual economies. Users can trade currencies between one another, transfer funds, and track their financial activity.
 
-advertisement.update(...)
+- **Highly Customizable**: Most aspects of the system can be customized, from currency types to the structure of banks and companies. This ensures that Ecoi fits the unique needs of each project.
 
-readable_advertisement = advertisement.read(...)
+- **Advanced Transactions**: Ecoi supports advanced features such as inter-user, inter-group trades, bank operations, and other complex financial transactions.
 
-advertisement.block(...)
-advertisement.unblock(...)
+## Future Plans
 
-advertisement.delete(...)
-```
-##### Transaction CURD+ Operations
-```py
-transaction = economy.createTransaction(...)
-transaction_id = transaction.transaction_id
+The future development of Ecoi will include several exciting enhancements:
 
-transaction = economy.getTransaction(transaction_id)
+- **Advanced Analytics**: Tools to analyze economic trends, track system performance, and make informed decisions based on economic data.
 
-transaction.update(...)
+- **Integration with Other Platforms**: Support for integrating with other platforms such as Discord or online marketplaces, expanding Ecoi's use case.
 
-transaction.cancel(...)
-transaction.complete(...)
-transaction.refund(...)
-transaction.close(...)
+- **Enhanced Security**: Improved security features, including data encryption and user protection, to ensure safe and reliable transactions.
 
-transaction.open(...)
+- **Customizable Settings**: Further customization options, allowing users to tailor the economy system to their specific needs. This will include flexible settings for businesses, users, and currency systems.
 
-readable_transaction = transaction.read(...)
+## Getting Help
 
-transaction.block(...)
-transaction.unblock(...)
+If you run into any issues or have questions about Ecoi, don't hesitate to seek help. You can:
 
-transaction.delete(...)
-```
-##### Bank CURD+ Operations
-```py
-bank = economy.createBank(...)
-bank_id = bank.bank_id
+- Open an issue on the [GitHub repository](https://github.com/WuiiiGithub/ecoi/issues).
+- Join the community discussions and ask for advice.
+- Check the documentation to see if your question is already answered.
 
-bank = economy.getBank(bank_id)
+## License
 
-bank.update(...)
+Ecoi is open source and released under the terms specified in the [LICENSE](https://github.com/WuiiiGithub/ecoi/blob/main/LICENSE) file.
 
-readable_bank = bank.read(...)
-
-bank.block(...)
-bank.unblock(...)
-bank.delete(...)
-```
-... similary others
-
-### Users & Connections
-```diff
-+Users and Connections Docs shifted to ./docs/Users.md
-```
-### Groups
-```py
-group = groups.createGroup(..., owner_id=user1.user_id)
-user2.reqGroupShip(group.group_id)
-owner_id = group.getOwnerId()
-owner = users.getUser(owner_id)
-isAccepted = owner.requests.read(filter={
-    "status": "pending",
-    "fromType": "group",
-    "limit": 1,
-    "details":{
-        "group_id": group.group_id,
-        "type": "join",
-        "user_id": user2.user_id,
-    }
-}, query_vars=["isAccepted"]).respond(True)
-group.addMember(user2.user_id)
-
-group.createSubGroup(...)
-group.getSubGroups()
-group.getSubGroup(sub_group_id)
-group.deleteSubGroup(sub_group_id)
-group.updateSubGroup(sub_group_id, ...)
-
-group.read()
-user1.getGroupShip()
-group.getMembersInfo(user_id)
-group.getMembers()
-group.getOwnerId()
-
-
-# Roles
-role = group.createRole(name, ...)
-role_id = role.id
-
-role.update(...)
-
-role.addMember(...)
-role.memberInfo(...)
-role.removeMember(...)
-role.permissions(...).read()
-role.permissions(...).add(...)
-role.permissions(...).remove(...)
-role.permissions(...).clear(...)
-role.permissions(...).update(...)
-
-role.block(...)
-role.unblock(...)
-
-role.delete(...)
-```
-### Advertisement
-```py
-from ecoi.core.economy import advertisements
-
-adv = advertisements.createAdv(...)
-adv_id = adv.id
-
-adv.update(...)
-adv.read()
-
-adv.draft(...)
-adv.publish(...)
-
-advCampaign = company.createAdvCampaign(...)
-advCampaign.upgrade(...)
-
-advCampaign_id = advCampaign.id
-
-advCampaign.update(...)
-advCampaign.read()
-
-advCampaign.start(...)
-advCampaign.end(...)
-
-advCampaign.delete(...)
-```
-### Companies 
-```py
-from ecoi.core import companies
-
-company = companies.createCompany(...)
-company_id = company.id
-
-company = companies.getCompany(company_id)
-
-company.read()
-
-company.update(...)
-
-company.hireEmployee(...)
-company.fireEmployee(...)
-company.getEmployees(...)
-company.getEmployeeInfo(...)
-company.advertise(...)
-company.startAdvCampaign(...)
-company.endAdvCampaign(...)
-
-company.advertise(...)
-
-company.contract(...)
-company.breakContract(...)
-
-role = company.createRole(...)
-role_id = role.id
-
-company.getRole(...)
-company.getRoles(...)
-
-# roles within the company
-role.update(...)
-role.addEmployee(...)
-role.removeEmployee(...)
-role.permissions(...).read()
-role.permissions(...).add(...)
-role.permissions(...).remove(...)
-role.permissions(...).update(...)
-role.permissions(...).clear(...)
-role.block(...)
-role.unblock(...)
-role.delete(...)
-
-# Salary or Giving something to Employee or Role
-company.giveEmployee(...)
-company.payEmployee(...)
-company.giveRole(...)
-company.payRole(...)
-
-# Company Buisness Operations
-item = company.createItem(...)
-item_id = item.id
-
-company.getItems(...)
-company.getItem(item_id, ...)
-
-item.updateItem(...)
-company.deleteItem(item_id, ...)
-
-company.sellItem(...)
-company.buyItem(...)
-
-service = company.createService(...)
-service_id = service.id
-company.getServices(...)
-company.getService(service_id, ...)
-company.updateService(...)
-company.deleteService(...)
-company.sellService(...)
-company.buyService(...)
-
-company.createMagicCard(...)
-company.getMagicCards(...)
-company.getMagicCard(...)
-company.updateMagicCard(...)
-company.deleteMagicCard(...)
-company.sellMagicCard(...)
-company.buyMagicCard(...)
-
-
-# Collaborations
-company.collab(...)
-company.breakCollab(...)
-
-company.block(...)
-company.unblock(...)
-
-company.delete(...)
-```
-```md
-### Others
-```py
-from ecoi.core.economy import items, services
-
-item = items.createItem(...)
-item_id = item.id
-
-item = items.getItem(item_id)
-
-
-
-service = services.createService(...)
-```
-### Requests
-```py
-from ecoi.core import requests
-
-req = requests.createRequest(...)
-req_id = req.req_id
-
-req = requests.getRequest(req_id)
-
-req.update(...)
-
-req.upgrade(...)
-req.read(...)
-
-req.delete()
-```
-### Banks
-### Analytics
-```

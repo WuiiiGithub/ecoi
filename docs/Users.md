@@ -10,13 +10,21 @@ from ecoi.core.social import *
 
 ## CURD+ Operations
 ```py
-user = users.createUser(...)
+user = users.createUser(
+    id: str,
+    name: str,
+    gmail: str,
+    gender: Literal['Male', 'Female', 'Other'],
+    birthday: datetime,
+    location: str,
+    group_id: str,
+)
 user_id = user.user_id
 
-user = users.getUser(user_id)
+user = users.getUser(user_id: str)
 
-user.update(...)
-user.upgrade(...)
+user.update(**kwargs)
+user.upgrade()
 
 readable_user = user.read(
     format = Literal['dict', 'bson'],
@@ -25,19 +33,22 @@ readable_user = user.read(
 )
 
 user.active()
-user.energize()
-user.exhaust()
+user.energize(amt: int)
+user.exhaust(amt: int)
 
-user.report(reason)
+user.report(
+    user_id: int, 
+    reason: str
+)
 
 user.block(
-    reason = str
-    ...
+    user_id: int, 
+    reason: str
 )
 
 user.unblock(
-    reason = str,
-    ...
+    user_id: int,
+    reason: str
 )
 
 user.delete()
@@ -45,159 +56,248 @@ user.delete()
 
 ## Profile
 ```py
-user.profile.read()
-user.profile.update(...)
-
-user.profile.updateName(...)
-user.profile.updatePfp(...)
-user.profile.updateStatus(...)
-user.profile.updateBio(...)
-user.profile.updateGender(...)
-user.profile.updateLocation(...)
-user.profile.updateBirthday(...)
-user.profile.updateRelationship(...)
-user.profile.updateOrientation(...)
-user.profile.updateWork(...)
+user.profile.read(
+    format = Literal['dict', 'bson'],
+    print_console = Literal[True, False],
+    filter: dict
+)
+user.profile.update(
+    name: str,
+    pfp: str,
+    status: str,
+    bio: str,
+    gender: Literal['Male', 'Female', 'Other'],
+    location: str,
+    birthday: datetime,
+    relationship: str,
+    orientation: str,
+    **kwargs
+)
 ```
 ### Personality Type
 ```py
-pers = user.profile.getPersonality()
-pers.read()
-pers.update(...)
+user.profile.personality.read(ptype: str=None)
+user.profile.personality.update(
+    mbti: str=None,
+    dom: str=None,
+    moral: str=None,
+    enneg: str=None,
+    tempr: str=None,
+    analytical: str=None,
+    zodiac: str=None,
+    mental_age: str=None,
+    **kwargs
+)
 ```
-#### MBTI Type
-```py
-pers.setMbti(...)
-pers.updateMbti(...)
-```
-#### Dominance Type
-```py
-pers.setDom(...)
-pers.updateDom(...)
-```
-#### Moral Alignment
-```py
-pers.setMoral(...)
-pers.updateMoral(...)
-```
-#### Enneagram Type
-
-##### Traditional
-```py
-pers.setEnneg(...)
-pers.updateEnneg(...)
-```
-##### Temparement
-```py
-pers.setTempr(...)
-pers.updateTempr(...)
-```
-##### Analytical Variant
-```py
-pers.setAnalytical(...)
-pers.updateAnalytical(...)
-```
-##### Zodiac Sign
-```py
-pers.setZodiac(...)
-pers.updateZodiac(...)
-```
-#### Mental Age
-```py
-pers.setMentalAge(...)
-pers.updateMentalAge(...)
-```
-
 
 ### Academics
 ```py
-user.profile.academics.read()
-user.profile.academics.update(...)
+user.profile.academics.read(filter: dict)
+user.profile.academics.update(
+    certifications: list,
+    projects: list,
+    skills: list,
+    education: list,
+    workExp: list,
+    **kwargs
+)
 ```
 #### Projects
 ```py
-user.profile.academics.projects.read()
-user.profile.academics.projects.add(...)
-user.profile.academics.projects.update(...)
-user.profile.academics.projects.delete(...)
+user.profile.academics.projects.read(filter: dict)
+proj = user.profile.academics.projects.add(
+    name: str,
+    link: str,
+    description: str,
+    since: datetime,
+    till: datetime=None,
+    **kwargs
+) 
+proj.update(
+    name: str=None,
+    link: str=None,
+    description: str=None,
+    since: datetime=None,
+    till: datetime=None,
+    **kwargs
+)
+proj.delete(...)
 ```
 #### Skills
 ```py
-user.profile.academics.skills.read()
-user.profile.academics.skills.add(...)
-user.profile.academics.skills.update(...)
-user.profile.academics.skills.delete(...)
+user.profile.skills.read()
+user.profile.skills.add(...)
+user.profile.skills.update(...)
+user.profile.skills.delete(...)
 ```
 #### Certifications
 ```py
-user.profile.academics.certifications.read()
-user.profile.academics.certifications.add(...)
-user.profile.academics.certifications.update(...)
-user.profile.academics.certifications.delete(...)
+user.profile.certifications.read(filter: dict)
+cert = user.profile.certifications.add(
+    name: str,
+    org: str,
+    link: str,
+    description: str,
+    since: datetime,
+    till: datetime=None,
+    **kwargs
+)
+cert.update(
+    name: str=None,
+    org: str=None,
+    link: str=None,
+    description: str=None,
+    since: datetime=None,
+    till: datetime=None,
+    **kwargs
+)
+cert.delete()
 ```
 #### Education
 ```py
-user.profile.academics.education.read()
-user.profile.academics.education.add(...)
-user.profile.academics.education.update(...)
-user.profile.academics.education.delete(...)
+user.profile.education.read(
+    filter: dict,
+    query_vars: list,
+    limit: int,
+)
+edu = user.profile.education.add(
+    name: str,
+    degree: str,
+    field: str,
+    link: str,
+    org: str,
+    since: datetime,
+    till: datetime=None,
+)
+edu.update(
+    name: str=None,
+    degree: str=None,
+    field: str=None,
+    link: str=None,
+    org: str=None,
+    since: datetime=None,
+    till: datetime=None,
+)
+edu.delete(...)
 ```
 #### Work Experience
 ```py
-user.profile.academics.workExp.read()
-user.profile.academics.workExp.add(...)
-user.profile.academics.workExp.update(...)
-user.profile.academics.workExp.delete(...)
+user.profile.workExp.read()
+user.profile.workExp.add(...)
+user.profile.workExp.update(...)
+user.profile.workExp.delete(...)
 ```
 
 ### Interests 
 ```py
-user.profile.interests.read()
-user.profile.interests.add(...)
-user.profile.interests.update(...)
-user.profile.interests.delete(...)
+user.profile.interests.read(
+    filter: dict,
+    query_vars: list,
+    limit: int,
+)
+intr = user.profile.interests.add(
+    name: str,
+    description: str,
+    since: datetime,
+    till: datetime=None,
+)
+intr.update(
+    name: str=None,
+    description: str=None,
+    since: datetime=None,
+    till: datetime=None,
+)
+intr.delete()
 ```
 
 ### Hobbies
 ```py
-user.profile.hobbies.read()
-user.profile.hobbies.add(...)
-user.profile.hobbies.update(...)
-user.profile.hobbies.delete(...)
+user.profile.hobbies.read(
+    filter: dict,
+    query_vars: list,
+    limit: int,
+)
+hob = user.profile.hobbies.add(
+    name: str,
+    description: str,
+    since: datetime,
+    till: datetime=None,
+)
+hob.update(
+    name: str=None,
+    description: str=None,
+    since: datetime=None,
+    till: datetime=None,
+)
+hob.delete()
 ```
 
 ### Ratings
 ```py
-user.profile.ratings.read()
-user.profile.ratings.add(...)
-user.profile.ratings.remove(...)
-user.profile.ratings.update(...)
-user.profile.ratings.delete(...)
+user.profile.ratings.read(
+    filter: dict,
+    query_vars: list,
+    limit: int,
+)
+rating = user.profile.ratings.add(
+    user_id: str,
+    rating: int,
+)
+rating.delete()
+rating.update(
+    rating: int,
+)
+user.profile.ratings.clear(...)
 ```
 
 ### Likes
 ```py
-user.profile.likes.read()
-user.profile.likes.add(...)
-user.profile.likes.remove(...)
-user.profile.likes.update(...)
-user.profile.likes.delete(...)
+user.profile.likes.read(
+    filter: dict,
+    query_vars: list,
+    limit: int,
+)
+user.profile.likes.add(user_id: int)
+user.profile.likes.remove(user_id: int)
+user.profile.likes.update(user_id: int)
+user.profile.likes.clear()
 ```
 
 ### Views
 ```py
-user.profile.views.read()
-user.profile.views.view()
+user.profile.getViews()
+user.profile.view()
 ```
 
 ## Terminal
 ```py
-user.terminal.read()
-user.terminal.query(...)
-user.terminal.setSelf(...)
-user.terminal.setGlobal(...)
-user.terminal.setGroupRole(...)
-user.terminal.setCompanyRole(...)
+user.terminal.read( # read history, settings...etc
+    filter: dict=None,
+    query_vars: list=None,
+    limit: int=None
+)
+user.terminal.query(
+    query: str,
+    **kwargs
+)
+user.terminal.setSelf(
+    mode: str,
+    **kwargs
+)
+user.terminal.setGlobal(
+    mode: str,
+    **kwargs
+)
+user.terminal.setGroupMode(
+    group_id: str,
+    role: str,
+    **kwargs
+)
+user.terminal.setCompanyMode(
+    company_id: str,
+    role: str,
+    **kwargs
+)
 ```
 ## Jobs
 ```py

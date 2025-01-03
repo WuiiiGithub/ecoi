@@ -9,3 +9,4 @@ __pycache__/
 .env
 .git/
 waste
+docs/User_v1.md

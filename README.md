@@ -1,4 +1,4 @@
-# Ecoi Package Documentation
+# Economic Credit Operations Infrastructure [Ecoi]
 
 ## About
 
@@ -6,7 +6,7 @@
 
 ### History
 
-The Ecoi project started as a simple attempt to build a Discord economy bot. After releasing versions 1 and 2, the complexity of the project grew. As a junior developer, I frequently reworked and refined the project to improve its functionality and make it more user-friendly. Eventually, the project evolved into a Python package aimed at simplifying economic management tasks for users.
+The Ecoi project started as a simple attempt to build a Discord economy bot. After releasing versions 1 and 2, the complexity of the project grew. As a student developer, I frequently reworked and refined the project to improve its functionality and make it more user-friendly. Eventually, the project evolved into a Python package aimed at simplifying economic management tasks for users.
 
 ### Vision
 
@@ -29,11 +29,11 @@ You can find detailed documentation for different features of the Ecoi package i
 
 In addition to the core economy management features, Ecoi also includes utilities for enhanced functionality. These are organized under the `utils` directory:
 
-- [Advertisements](docs/utils/advertisements.md)
-- [Moe](docs/utils/moe.md)
-- [Products](docs/utils/products.md)
-- [Requests](docs/utils/requests.md)
-- [Magic Cards](docs/utils/magicCards.md)
+- [Advertisements](tree/main/docs/utils/advertisements.md)
+- [Moe](tree/docs/utils/moe.md)
+- [Products](tree/main/docs/utils/products.md)
+- [Requests](tree/main/docs/utils/requests.md)
+- [Magic Cards](tree/main/docs/utils/magicCards.md)
 
 ## Contributions
 
